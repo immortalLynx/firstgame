@@ -66,8 +66,6 @@ def drawWindow():
     for bullet in bullets:
         bullet.draw(win)
 
-
-    
     pygame.display.update()
 
 run = True
@@ -96,7 +94,6 @@ while run:
         if len(bullets) < 5:
             bullets.append(snaryad(round(x + width // 2), round(y + height // 2),
             5, (255,0,0), facing))
-
 
     if keys[pygame.K_LEFT] and x > 5:
         x -= speed
@@ -128,10 +125,6 @@ while run:
             isJump = False
             jumpCount = 10
     drawWindow()
-
-
-
-
 
 pygame.quit()
 
