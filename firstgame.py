@@ -1,17 +1,19 @@
 import pygame
 
 pygame.init()
-win = pygame.display.set_mode((500,500))
+
+canvasWidth = 500
+win = pygame.display.set_mode((canvasWidth, 500))
 
 pygame.display.set_caption("Cubes Game")
 
-walkRight = [pygame.image.load('./img/pygame_right_1.png'), pygame.image.load('./img/pygame_right_2.png'),
-pygame.image.load('./img/pygame_right_3.png'), pygame.image.load('./img/pygame_right_4.png'),
-pygame.image.load('./img/pygame_right_5.png'), pygame.image.load('./img/pygame_right_6.png')]
+walkRight = []
+for i in range(1, 7):
+    walkRight.append(pygame.image.load('./img/pygame_right_' + str(i) + '.png'))
 
-walkLeft = [pygame.image.load('./img/pygame_left_1.png'), pygame.image.load('./img/pygame_left_2.png'),
-pygame.image.load('./img/pygame_left_3.png'), pygame.image.load('./img/pygame_left_4.png'),
-pygame.image.load('./img/pygame_left_5.png'), pygame.image.load('./img/pygame_left_6.png')]
+walkLeft = []
+for i in range(1, 7):
+    walkLeft.append(pygame.image.load('./img/pygame_left_' + str(i) + '.png'))
 
 playerStand = pygame.image.load('./img/pygame_idle.png')
 bg = pygame.image.load('./img/pygame_bg.jpg')
@@ -20,7 +22,7 @@ clock = pygame.time.Clock()
 
 x = 50
 y = 425
-widht = 60
+width = 60
 height = 71
 speed = 5
 
@@ -92,7 +94,7 @@ while run:
         else:
             facing = -1
         if len(bullets) < 5:
-            bullets.append(snaryad(round(x + widht // 2), round(y + height // 2),
+            bullets.append(snaryad(round(x + width // 2), round(y + height // 2),
             5, (255,0,0), facing))
 
 
@@ -101,7 +103,7 @@ while run:
         left = True
         right = False
         lastMove = "left"
-    elif keys[pygame.K_RIGHT] and x < 500 - widht -5:
+    elif keys[pygame.K_RIGHT] and x < canvasWidth - width - 5:
         x += speed
         left = False
         right = True
