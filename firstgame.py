@@ -1,4 +1,5 @@
 import pygame
+import math
 
 pygame.init()
 
@@ -38,7 +39,7 @@ left = False
 right = False
 
 xball = 0
-yball = 0
+yball = 10
 animCount = 0
 lastMove = "right"
 class snaryad():
@@ -83,16 +84,22 @@ def drawWindow(xball):
 
 run = True
 bullets = []
+k = +1;
+amplitude = 2;
 
 while run:
     clock.tick(30)
 
-    xball += 0.5
+    # k — помогает менять направление движения
+    if (xball >= canvasWidth):
+      k = -1
 
-    if yball > 200:
-        yball = yball -0.001*xball**2
-    else:
-        yball = 0.001*xball**2 + 5*xball
+    if (xball <= 0):
+      k = +1
+
+    xball += 0.5 * k;
+    yball = math.sin(xball) * amplitude;
+
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
