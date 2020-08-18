@@ -18,6 +18,9 @@ for i in range(1, 7):
 playerStand = pygame.image.load('./img/pygame_idle.png')
 bg = pygame.image.load('./img/pygame_bg.jpg')
 
+ball = pygame.image.load('./img/ball.png')
+
+
 clock = pygame.time.Clock()
 
 x = 50
@@ -26,12 +29,16 @@ width = 60
 height = 71
 speed = 5
 
+count = 0 
+
 isJump = False
 jumpCount = 10
 
 left = False
 right = False
 
+xball = 0
+yball = 0
 animCount = 0
 lastMove = "right"
 class snaryad():
@@ -46,7 +53,8 @@ class snaryad():
     def draw(self, win):
         pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
 
-def drawWindow():
+def drawWindow(xball):
+    
     global animCount
 
     win.blit(bg, (0, 0))
@@ -65,6 +73,11 @@ def drawWindow():
 
     for bullet in bullets:
         bullet.draw(win)
+    
+    
+      
+    win.blit(ball, (xball, yball))
+        
 
     pygame.display.update()
 
@@ -73,6 +86,17 @@ bullets = []
 
 while run:
     clock.tick(30)
+    
+    xball += 0.5
+    
+    
+    if yball > 200: 
+        
+        yball = yball -0.001*xball**2 
+    else:
+        yball = 0.001*xball**2 + 5*xball
+
+    
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -81,6 +105,11 @@ while run:
     for bullet in bullets:
         if  bullet.x < 500 and bullet.x > 0:
             bullet.x += bullet.vel
+            if bullet.x < xball + 20 and bullet.x > xball - 20 and y < yball + 20 and y > yball - 20:
+                print("ПОПАЛ")
+                count += 1
+                
+                
         else:
             bullets.pop(bullets.index(bullet))
 
@@ -124,7 +153,17 @@ while run:
         else:
             isJump = False
             jumpCount = 10
-    drawWindow()
+    
+        
+    drawWindow(xball)
+
+if count <= 10:
+    print("Метьтесь лучше... Ведь вы попали всего", count, "раз")
+elif count >= 10 and count <= 20:
+    print("Нормально стреляете! Вы попали", count, "раз")
+else:
+    print("Ого, вы НАСТОЯЩИЙ стрелок", count, "раз")
+
 
 pygame.quit()
 
