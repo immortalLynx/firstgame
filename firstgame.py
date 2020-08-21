@@ -84,21 +84,21 @@ def drawWindow(xball):
 
 run = True
 bullets = []
-k = +1;
-amplitude = 2;
+k = +1
+amplitude = 100
 
 while run:
     clock.tick(30)
 
     # k — помогает менять направление движения
-    if (xball >= canvasWidth):
+    if (xball >= canvasWidth-50):
       k = -1
 
-    if (xball <= 0):
+    if (xball <= -50):
       k = +1
 
-    xball += 0.5 * k;
-    yball = math.sin(xball) * amplitude;
+    xball += 2 * k
+    yball = math.sin(xball/50) * amplitude + 300
 
 
     for event in pygame.event.get():
